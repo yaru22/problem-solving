@@ -4,30 +4,18 @@
 (function () {
   'use strict';
 
-  var coins = [0, 1, 2, 5, 10, 20, 50, 100, 200];
+  var coins = [1, 2, 5, 10, 20, 50, 100, 200];
   var ways = {};
-  ways[0] = {};
-  ways[0][0] = 1;
+  ways[0] = 1;
 
-  for (var i = 1; i <= 200; i++) {
-    ways[i] = {};
-    ways[i][0] = 0;
-    for (var j = 1; j < coins.length; j++) {
-      var coin = coins[j];
-      if (coin > i) {
-        break;
-      }
-
-      for (var k = j; k >= 1; k--) {
-        if (coins[k] <= i - coin) {
-          break;
-        }
-      }
-      ways[i][j] = ways[i][j - 1] + ways[i - coin][k];
+  for (var i = 0; i < coins.length; i++) {
+    for (var j = coins[i]; j <= 200; j++) {
+      if (ways[j] === undefined) ways[j] = 0;
+      ways[j] += ways[j - coins[i]];
     }
   }
 
-  console.log(ways[200][8]);
+  console.log(ways[200]);
 })();
 
 // coins = [1, 2, 5, 10, 20, 50, 100, 200] (assume 1-index based);
@@ -50,3 +38,17 @@
 // a[5][2] = a[5][1] + a[3][2] = 3; 1 1 1 1 1, 1 1 1 2, 1 2 2
 // a[5][3] = a[5][2] + a[0][0] = 4; 1 1 1 1 1, 1 1 1 2, 1 2 2, 5
 // ...
+//
+// UPDATE: You can solve using just 1-d array. Think of it like this.
+// If you have only 1p coin, how many ways to make 'n' pences?
+// n    = 1 2 3 4 5 6 7 8 9 10
+// ways = 1 1 1 1 1 1 1 1 1 1
+// Now, if you have one more coin (2p), how many ways to make 'n' pences?
+// n    = 1 2 3 4 5 6 7 8 9 10
+// ways   1 1 1 1 1 1 1 1 1 1
+//      + 0 1 1 2 2 3 3 4 4 5
+//      ======================
+//        1 2 2 3 3 4 4 5 5 6
+// etc.
+// a[0] = 1
+// a[i] = a[i] + a[i - coin]
