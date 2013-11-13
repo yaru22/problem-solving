@@ -15,9 +15,9 @@
   'use strict';
 
   var solProducts = {};
-  for (var i = 0; i < 999; i++) {
+  for (var i = 1; i <= 98; i++) {
     loop:
-    for (var j = i; j < 9999; j++) {
+    for (var j = i; j <= 9876 / i; j++) {
       var product = i * j;
       var str = '' + i + j + product;
       if (str.length !== 9) {
