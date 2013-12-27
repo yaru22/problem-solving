@@ -25,19 +25,18 @@
     var circularPrime = true;
     var nStr = n + '';
     for (var i = 0; i < nStr.length; i++) {
-      nStr = nStr.substring(1) + nStr[0];
-      n = parseInt(nStr, 10);
-      if (!isPrime(n)) {
-        circularPrime = false;
+      circularPrime = circularPrime && isPrime(n);
+      if (!circularPrime) {
         break;
       }
-      nStr = n + '';
+      nStr = nStr.substring(1) + nStr[0];
+      n = parseInt(nStr, 10);
     }
     return circularPrime;
   }
 
   var count = 0;
-  for (var i = 2; i <= 100; i++) {
+  for (var i = 2; i <= 1000000; i++) {
     if (isCircularPrime(i)) {
       count++;
     }
