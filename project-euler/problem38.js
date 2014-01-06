@@ -33,11 +33,17 @@
   }
 
   var max = -1;
-  for (var i = 9999; i >= 1; i--) {
+  for (var i = 9999; i >= 9000; i--) {
     for (var j = 2; j <=9; j++) {
       var n = product(i, j);
-      if (isPanDigital(n) && n > max) {
-        max = n;
+      if ((n + '')[0] !== '9') {
+        break;
+      }
+      if (isPanDigital(n)) {
+        if (n > max) {
+          max = n;
+        }
+        break;
       }
     }
   }
