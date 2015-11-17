@@ -1,5 +1,6 @@
 *~
 *.bak
+*.class
 *.swp
 *.sublime-project
 *.sublime-workspace
